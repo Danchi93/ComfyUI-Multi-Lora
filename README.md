@@ -53,3 +53,7 @@ git clone https://github.com/Danchi93/ComfyUI-Multi-Lora
 ### 使用方法
 
 在工作流中添加 **Multi LoRA Loader** 节点，连接模型输入，输出用法与标准 LoRA Loader 相同。
+
+### 语言切换
+界面默认显示英文。如需切换中文，打开 multi_lora_loader.js，修改第4行的内容：
+const LANG = "zh";  // "en" 英文，"zh" 中文

@@ -1,5 +1,19 @@
 import { app } from "../../scripts/app.js";
 
+// 语言配置：将下面一行的 "en" 改成 "zh" 即可切换中文
+const LANG = "en";
+
+const I18N = {
+    en: { on_off: "On/Off", lora: "LoRA", strength: "Strength", note: "Note", del: "Del",
+          select: "Select LoRA...", add: "＋ Add LoRA", note_ph: "Note...",
+          prompt_strength: "Strength", prompt_note: "Note" },
+    zh: { on_off: "开关", lora: "LoRA", strength: "权重", note: "备注", del: "删除",
+          select: "选择 LoRA...", add: "＋ 添加 LoRA", note_ph: "备注...",
+          prompt_strength: "权重", prompt_note: "备注" },
+};
+const T = I18N[LANG] ?? I18N.en;
+
+
 const ROW_H = 30;
 const PAD = 10;
 const HEADER_H = 22;
@@ -106,7 +120,7 @@ function makeHeaderWidget() {
             ctx.font = "10px sans-serif";
             ctx.textBaseline = "middle";
             // 修复1：最后一列改回"删除"
-            ["On/Off", "LoRA", "Strength", "Note", "Del"].forEach((label, i) => {
+            [T.on_off, T.lora, T.strength, T.note, T.del].forEach((label, i) => {
                 ctx.textAlign = "center";
                 ctx.fillText(label, x + cols[i] / 2, y + HEADER_H / 2);
                 x += cols[i] + GAP;
@@ -151,7 +165,7 @@ function makeLoraRowWidget(node, row, rowIndex, loraList, onDelete, onchange) {
             ctx.fillStyle = row.lora === "None" ? "#555" : "#ddd";
             ctx.font = "11.5px sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle";
             ctx.fillText(
-                row.lora === "None" ? "Select LoRA..." :
+                row.lora === "None" ? T.select:
                     row.lora.replace(/\.(safetensors|pt|ckpt)$/i, "").split(/[\\/]/).pop(),
                 lx + 7, ry + rh / 2);
             ctx.restore();
@@ -173,7 +187,7 @@ function makeLoraRowWidget(node, row, rowIndex, loraList, onDelete, onchange) {
             ctx.save(); ctx.rect(x + 4, ry, cols[3] - 8, rh + 6); ctx.clip();
             ctx.fillStyle = row.note ? "#aaa" : "#444";
             ctx.font = "11px sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle";
-            ctx.fillText(row.note || "Note...", x + 6, ry + rh / 2);
+            ctx.fillText(row.note || T.note_ph, x + 6, ry + rh / 2);
             ctx.restore();
             x += cols[3] + GAP;
 
@@ -208,7 +222,7 @@ function makeLoraRowWidget(node, row, rowIndex, loraList, onDelete, onchange) {
             }
             x += cols[1] + GAP;
             if (mx >= x && mx < x + cols[2]) {
-                app.canvas.prompt("Strength", row.strength.toFixed(2), (val) => {
+                app.canvas.prompt(T.prompt_strength, row.strength.toFixed(2), (val) => {
                     const n = parseFloat(val);
                     if (!isNaN(n)) { row.strength = Math.round(n * 100) / 100; onchange(); }
                 }, e);
@@ -216,7 +230,7 @@ function makeLoraRowWidget(node, row, rowIndex, loraList, onDelete, onchange) {
             }
             x += cols[2] + GAP;
             if (mx >= x && mx < x + cols[3]) {
-                app.canvas.prompt("Note", row.note, (val) => { row.note = val; onchange(); }, e);
+                app.canvas.prompt(T.prompt_note, row.note, (val) => { row.note = val; onchange(); }, e);
                 return true;
             }
             x += cols[3] + GAP;
@@ -240,7 +254,7 @@ function makeAddButtonWidget(onClick) {
             ctx.font = "bold 13px sans-serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";   // 真正居中
-            ctx.fillText("＋ Add LoRA", ww / 2, y + 4 + BTN_H / 2);
+            ctx.fillText(T.add, ww / 2, y + 4 + BTN_H / 2);
         },
         mouse(e, pos) {
             if (e.type !== "pointerdown") return false;
