@@ -119,3 +119,10 @@ const LANG = "zh";  // "en" 为英文，"zh" 为中文
 
 在工作流中添加 **Prompt Segments** 节点，将 prompt 输出连接到 CLIP 文本编码器或任何接受文本输入的节点。
 ```
+
+**语言切换**
+
+界面默认显示英文。如需切换中文，打开 `prompt_segments.js`，修改第 4 行：
+
+```js
+const LANG = "zh";  // "en" 为英文，"zh" 为中文
