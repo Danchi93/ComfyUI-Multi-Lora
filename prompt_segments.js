@@ -85,19 +85,17 @@ app.registerExtension({
             this._applySize();
         };
 
-        nodeType.prototype._applySize = function () {
-            this._domWidget.element.style.height = "auto";
-            this._domWidget.computeSize = () => [0, -4];
-
-            requestAnimationFrame(() => {
-                const domH = this._segContainer.scrollHeight;
-                if (!this._overhead) this._overhead = Math.max(this.size[1] - domH, 60);
-                const h = domH + this._overhead;
-                this._minH = h;
-                this.size[1] = h;
-                app.graph.setDirtyCanvas(true, true);
-            });
-        };
+nodeType.prototype._applySize = function () {
+    this._domWidget.element.style.height = "auto";
+    this._domWidget.computeSize = () => [0, -4];
+    requestAnimationFrame(() => {
+        const domH = this._segContainer.scrollHeight;
+        const h = domH + 50; // 固定 overhead：节点标题栏 + prompt 输出槽
+        this._minH = h;
+        this.size[1] = h;
+        app.graph.setDirtyCanvas(true, true);
+    });
+};
 
         nodeType.prototype._sync = function () {
             if (this._rawWidget) this._rawWidget.value = JSON.stringify(this._segments);
