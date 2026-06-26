@@ -17,7 +17,7 @@ Clone into your ComfyUI custom_nodes folder:
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/Danchi93/ComfyUI-Multi-Lora
+git clone https://github.com/Danchi93/ComfyUI-Workflow-Tools
 ```
 
 Restart ComfyUI.
@@ -45,7 +45,7 @@ Add the **Multi LoRA Loader** node in your workflow. Connect the model input, th
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/Danchi93/ComfyUI-Multi-Lora
+git clone https://github.com/Danchi93/ComfyUI-Workflow-Tools
 ```
 
 重启 ComfyUI 即可。
