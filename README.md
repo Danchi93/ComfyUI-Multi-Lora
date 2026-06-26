@@ -1,3 +1,7 @@
+看到问题了。新加的"语言切换"内容被放到了整个 markdown 代码块**外面**，而且代码块也没有闭合。
+
+这是修好的完整 README.md，直接覆盖替换：
+
 ```markdown
 # ComfyUI-Workflow-Tools
 
@@ -60,6 +64,14 @@ Combine multiple prompt segments into one node and output them in order — no m
 
 Add the **Prompt Segments** node in your workflow. Connect the prompt output to a CLIP Text Encoder or any node that accepts text input.
 
+### Language
+
+The UI defaults to English. To switch to Chinese, open `prompt_segments.js` and change line 4:
+
+```js
+const LANG = "zh";  // "en" for English, "zh" for Chinese
+```
+
 ---
 
 ## 中文介绍
@@ -118,11 +130,11 @@ const LANG = "zh";  // "en" 为英文，"zh" 为中文
 #### 使用方法
 
 在工作流中添加 **Prompt Segments** 节点，将 prompt 输出连接到 CLIP 文本编码器或任何接受文本输入的节点。
-```
 
-**语言切换**
+#### 语言切换
 
 界面默认显示英文。如需切换中文，打开 `prompt_segments.js`，修改第 4 行：
 
 ```js
 const LANG = "zh";  // "en" 为英文，"zh" 为中文
+```
