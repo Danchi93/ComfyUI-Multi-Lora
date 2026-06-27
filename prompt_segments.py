@@ -6,6 +6,8 @@ class PromptSegments:
         return {
             "required": {
                 "segments": ("STRING", {"default": "[]", "multiline": False}),
+            },"optional": {
+                "prompts_in": ("STRING", {"forceInput": True}),
             }
         }
 
@@ -14,7 +16,7 @@ class PromptSegments:
     FUNCTION = "apply"
     CATEGORY = "conditioning"
 
-    def apply(self, segments="[]"):
+    def apply(self, segments="[]", prompts_in=None):
         try:
             stack = json.loads(segments)
         except Exception:
@@ -25,4 +27,7 @@ class PromptSegments:
             for s in stack
             if s.get("enabled", True) and s.get("text", "").strip()
         ]
-        return (", ".join(parts),)
+        result = ", ".join(parts)
+        if prompts_in and prompts_in.strip():
+            result = prompts_in.strip() + (", " + result if result else "")
+        return (result,)
